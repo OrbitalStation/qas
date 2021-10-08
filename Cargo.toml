@@ -1,0 +1,12 @@
+[package]
+name = "qas"
+version = "0.0.0"
+authors = ["Roman <romann.tarasenko@gmail.com>"]
+edition = "2018"
+
+[lib]
+# proc-macro = true
+
+[dependencies]
+peg = "0.7.0"
+evalexpr = "6.5.0"
