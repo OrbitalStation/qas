@@ -1,3 +1,11 @@
+use qas::prelude::*;
+
+qas!("main.c");
+
+
 fn main() {
-    println!("{}", qas::c::start(std::fs::read_to_string("main.c").unwrap()));
+    println!("{}", fib(u32::MAX - 1))
+    // unsafe {
+    //     println!("Date: {}\nTime: {}\nFunc: {}\nFile: {}\nLine: {}", date().to_rust(), time().to_rust(), func().to_rust(), file().to_rust(), line())
+    // }
 }

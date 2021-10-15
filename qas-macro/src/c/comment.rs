@@ -9,7 +9,7 @@ impl Comment {
         let mut i = 0;
         while i < code.len() {
             for comment in comments {
-                if code[i..].starts_with(comment.begin) {
+                if code.chars().skip(i).collect::<String>().starts_with(comment.begin) {
                     code.drain(i..i + comment.begin.len());
                     while !code[i..].starts_with(comment.end) {
                         code.remove(i);

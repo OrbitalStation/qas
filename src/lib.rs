@@ -1,39 +1,29 @@
-pub mod c;
+//!
+//! This crate provides a macro `qas`, which can convert C into Rust.
+//!
+//! Example:
+//!
+//! lib:
+//! ```rust
+//! use qas::prelude::*;
+//!
+//! qas!("tests/c/arithmetic.c");
+//!
+//! fn main() {
+//!     assert_eq!(add(7, 32), 39)
+//! }
+//! ```
 
-/// Extra methods for class `String`
-pub(crate) trait StringExt {
+#![no_std]
 
-    /// Example:
-    /// ```rust
-    /// assert_eq!("(foobar)".deparentify(), "foobar")
-    /// ```
-    fn deparentify(&self) -> Self;
+extern crate qas_macro;
+
+mod traits;
+pub mod builtin;
+
+pub mod prelude {
+    use super::*;
+
+    pub use qas_macro::qas;
+    pub use traits::*;
 }
-
-impl StringExt for String {
-    fn deparentify(&self) -> Self {
-        let mut me = self.clone();
-
-        if me.chars().next().unwrap() == '(' && me.chars().next_back().unwrap() == ')' {
-            if me[1..].chars().find(|x| *x == '(').is_some() {
-                return me
-            }
-            me.pop();
-            me.remove(0);
-            me
-        } else {
-            me
-        }
-    }
-}
-
-// use proc_macro::TokenStream;
-//
-// #[proc_macro]
-// pub fn qas(path: TokenStream) -> TokenStream {
-//     let src = path.to_string();
-//     assert!(src[..1].chars().next().unwrap() == '"' && src[src.len() - 1..].chars().next().unwrap() == '"');
-//     let path = &src[1..src.len() - 1];
-//
-//
-// }
